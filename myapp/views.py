@@ -32,3 +32,9 @@ def delete(request , id):
     employee = Employee.objects.get(id=id)
     employee.delete()
     return redirect('/show')
+
+def search(request):
+    given_name = request.POST['name']
+    employee = Employee.objects.filter(ename__icontains=given_name) # __iexact = case-sensitive , __icontains = search
+    return render(request,'show.html',{'employee' : employee})
+
